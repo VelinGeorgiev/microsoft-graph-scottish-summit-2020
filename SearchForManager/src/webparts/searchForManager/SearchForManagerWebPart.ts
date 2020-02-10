@@ -21,7 +21,7 @@ export default class SearchForManagerWebPart extends BaseClientSideWebPart <ISea
     const element: React.ReactElement<ISearchForManagerProps> = React.createElement(
       SearchForManager,
       {
-        description: this.properties.description
+        msGraphClientFactory: this.context.msGraphClientFactory
       }
     );
 

@@ -1,25 +1,44 @@
 import * as React from 'react';
-import styles from './SearchForManager.module.scss';
 import { ISearchForManagerProps } from './ISearchForManagerProps';
-import { escape } from '@microsoft/sp-lodash-subset';
+import { MSGraphClient } from '@microsoft/sp-http';
 
-export default class SearchForManager extends React.Component<ISearchForManagerProps, {}> {
+interface ISearchForManagerState {
+  result: any;
+}
+
+export default class SearchForManager extends React.Component<ISearchForManagerProps, ISearchForManagerState> {
+
+  constructor(props: ISearchForManagerProps) {
+    super(props);
+    this.state = { result: '' };
+  }
+
   public render(): React.ReactElement<ISearchForManagerProps> {
     return (
-      <div className={ styles.searchForManager }>
-        <div className={ styles.container }>
-          <div className={ styles.row }>
-            <div className={ styles.column }>
-              <span className={ styles.title }>Welcome to SharePoint!</span>
-              <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-              <p className={ styles.description }>{escape(this.props.description)}</p>
-              <a href="https://aka.ms/spfx" className={ styles.button }>
-                <span className={ styles.label }>Learn more</span>
-              </a>
-            </div>
-          </div>
-        </div>
+      <div>
+        <input type="search" id="employee" />
+        <button onClick={this.search.bind(this)}>Search</button>
+        <pre>{JSON.stringify(this.state.result, null, 2)}</pre>
       </div>
     );
+  }
+
+  private search(): void {
+    const employee: HTMLInputElement = document.getElementById("employee") as HTMLInputElement;
+    if (employee.value) {
+
+      this.props.msGraphClientFactory
+        .getClient()
+        .then((client: MSGraphClient) => {
+          client
+            .api(`/users/${employee.value}/manager/`)
+            .version("v1.0")
+            .select("displayName,mail,userPrincipalName")
+            .get((err, res) => {
+
+              this.setState({ result: err || res.displayName });
+            });
+        });
+    }
   }
 }

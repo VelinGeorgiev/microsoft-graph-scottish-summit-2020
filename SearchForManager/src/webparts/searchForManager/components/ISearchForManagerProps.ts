@@ -1,3 +1,5 @@
+import { MSGraphClientFactory } from "@microsoft/sp-http";
+
 export interface ISearchForManagerProps {
-  description: string;
+  msGraphClientFactory: MSGraphClientFactory;
 }

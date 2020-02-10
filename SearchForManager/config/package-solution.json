@@ -5,7 +5,18 @@
     "id": "619c42db-5de2-42e1-8b3b-c310f318086b",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "isDomainIsolated": true
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "webApiPermissionRequests": [
+      {
+        "resource": "Microsoft Graph",
+        "scope": "User.ReadBasic.All"
+      },
+      {
+        "resource": "Microsoft Graph",
+        "scope": "User.Read.All"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/search-for-manager.sppkg"

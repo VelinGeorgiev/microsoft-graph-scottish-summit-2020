@@ -5,7 +5,14 @@
     "id": "56b059eb-886f-434d-ae87-c83cbefd10c6",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "isDomainIsolated": true
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": true,
+    "webApiPermissionRequests": [
+      {
+        "resource": "Microsoft Graph",
+        "scope": "User.ReadWrite.All"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/assign-manager.sppkg"

@@ -1,25 +1,47 @@
 import * as React from 'react';
-import styles from './AssignManager.module.scss';
 import { IAssignManagerProps } from './IAssignManagerProps';
-import { escape } from '@microsoft/sp-lodash-subset';
+import { MSGraphClient } from '@microsoft/sp-http';
 
-export default class AssignManager extends React.Component<IAssignManagerProps, {}> {
+interface IAssignManagerState {
+  result: any;
+}
+
+export default class AssignManager extends React.Component<IAssignManagerProps, IAssignManagerState> {
+
+  constructor(props: IAssignManagerProps) {
+    super(props);
+    this.state = { result: '' };
+  }
+
   public render(): React.ReactElement<IAssignManagerProps> {
     return (
-      <div className={ styles.assignManager }>
-        <div className={ styles.container }>
-          <div className={ styles.row }>
-            <div className={ styles.column }>
-              <span className={ styles.title }>Welcome to SharePoint!</span>
-              <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-              <p className={ styles.description }>{escape(this.props.description)}</p>
-              <a href="https://aka.ms/spfx" className={ styles.button }>
-                <span className={ styles.label }>Learn more</span>
-              </a>
-            </div>
-          </div>
-        </div>
+      <div>
+        <input type="input" id="employee" placeholder="employee" />
+        <input type="input" id="manager" placeholder="manager" />
+        <button onClick={this.assignManager.bind(this)}>Assign</button>
+        <pre>{JSON.stringify(this.state.result, null, 2)}</pre>
       </div>
     );
+  }
+
+  private assignManager(): void {
+    const manager: HTMLInputElement = document.getElementById("manager") as HTMLInputElement;
+    const employee: HTMLInputElement = document.getElementById("employee") as HTMLInputElement;
+
+    if (manager.value && employee.value) {
+
+      this.props.msGraphClientFactory
+        .getClient()
+        .then((client: MSGraphClient) => {
+          
+          client
+          .api(`/users/${manager.value}/manager/$ref`)
+          .header("Content-Type", "application/json")
+          .put({ "@odata.id": `https://graph.microsoft.com/v1.0/users/${employee.value}` }, (err, res) => {
+            
+            return this.setState({ result: err || 'DONE' });
+          });
+        });
+    }
   }
 }

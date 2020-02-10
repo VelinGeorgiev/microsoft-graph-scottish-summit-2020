@@ -21,7 +21,7 @@ export default class AssignManagerWebPart extends BaseClientSideWebPart <IAssign
     const element: React.ReactElement<IAssignManagerProps> = React.createElement(
       AssignManager,
       {
-        description: this.properties.description
+        msGraphClientFactory: this.context.msGraphClientFactory
       }
     );
 
