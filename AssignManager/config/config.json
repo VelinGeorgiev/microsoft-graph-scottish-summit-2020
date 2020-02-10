@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "assign-manager-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/assignManager/AssignManagerWebPart.js",
+          "manifest": "./src/webparts/assignManager/AssignManagerWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "AssignManagerWebPartStrings": "lib/webparts/assignManager/loc/{locale}.js"
+  }
+}
