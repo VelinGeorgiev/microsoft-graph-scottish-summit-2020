@@ -36,10 +36,11 @@ export default class AssignAManagerWebPart extends BaseClientSideWebPart <IAssig
 
           const options: IHttpClientOptions = {
             headers: requestHeaders,
+            method: 'PUT',
             body: `{ "@odata.id": "https://graph.microsoft.com/v1.0/users/${encodeURIComponent(employee.value)}" }`
           };
 
-          client.post(`https://graph.microsoft.com/users/${encodeURIComponent(manager.value)}/manager/$ref`, AadHttpClient.configurations.v1, options)
+          client.fetch(`https://graph.microsoft.com/v1.0/users/${encodeURIComponent(manager.value)}/manager/$ref`, AadHttpClient.configurations.v1, options)
           .then((response: HttpClientResponse) => {
 
             return response.json()
