@@ -4,10 +4,9 @@ import {
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import { escape } from '@microsoft/sp-lodash-subset';
-
-import styles from './SearchForAManagerWebPart.module.scss';
 import * as strings from 'SearchForAManagerWebPartStrings';
+import { MSGraphClient } from '@microsoft/sp-http';
+
 
 export interface ISearchForAManagerWebPartProps {
   description: string;
@@ -17,25 +16,38 @@ export default class SearchForAManagerWebPart extends BaseClientSideWebPart <ISe
 
   public render(): void {
     this.domElement.innerHTML = `
-      <div class="${ styles.searchForAManager }">
-    <div class="${ styles.container }">
-      <div class="${ styles.row }">
-        <div class="${ styles.column }">
-          <span class="${ styles.title }">Welcome to SharePoint!</span>
-  <p class="${ styles.subTitle }">Customize SharePoint experiences using Web Parts.</p>
-    <p class="${ styles.description }">${escape(this.properties.description)}</p>
-      <a href="https://aka.ms/spfx" class="${ styles.button }">
-        <span class="${ styles.label }">Learn more</span>
-          </a>
-          </div>
-          </div>
-          </div>
-          </div>`;
+    <div>
+      <input type="text" id="email" name="email" autocomplete="on" />
+      <button id="search">Search</button>
+      <div>Direct Manager:</div>
+      <pre id="result"></pre> 
+    </div>`;
+
+    const searchButton = document.getElementById('search');
+    searchButton.addEventListener('click', () => {
+
+      const email = document.getElementById('email') as HTMLInputElement;
+
+      this.context.msGraphClientFactory
+        .getClient()
+        .then((client: MSGraphClient) => {
+          client
+            .api(`/users/${encodeURIComponent(email.value)}/manager/`)
+            .version('v1.0')
+            .select('displayName,mail,userPrincipalName')
+            .get((err, res) => {
+
+              const result = document.getElementById('result');
+              result.innerHTML = JSON.stringify((err || res), null, 2);
+              
+            });
+        });
+    });
   }
 
   protected get dataVersion(): Version {
-  return Version.parse('1.0');
-}
+    return Version.parse('1.0');
+  }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
   return {
