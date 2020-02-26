@@ -5,7 +5,7 @@ import {
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as strings from 'AssignAManagerWebPartStrings';
-import { MSGraphClient } from '@microsoft/sp-http';
+import { AadHttpClient, IHttpClientOptions, HttpClientResponse } from '@microsoft/sp-http';
 
 export interface IAssignAManagerWebPartProps {
   description: string;
@@ -26,22 +26,36 @@ export default class AssignAManagerWebPart extends BaseClientSideWebPart <IAssig
       const manager = document.getElementById('manager') as HTMLInputElement;
       const employee = document.getElementById('employee') as HTMLInputElement;
 
-      this.context.msGraphClientFactory
-        .getClient()
-        .then((client: MSGraphClient) => {
+      this.context.aadHttpClientFactory
+        .getClient('https://graph.microsoft.com')
+        .then((client: AadHttpClient) => {
 
-          client
-          .api(`/users/${encodeURIComponent(manager.value)}/manager/$ref`)
-          .header('Content-Type', 'application/json')
-          .put({ 
-                "@odata.id": `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(employee.value)}` 
-               }, 
-              (err, res) => {
+          const requestHeaders: Headers = new Headers();
+          requestHeaders.append('Content-type', 'application/json');
+          requestHeaders.append('Cache-Control', 'no-cache');
 
-                const result = document.getElementById('result');
-                result.innerHTML = JSON.stringify((err || res), null, 2);
+          const options: IHttpClientOptions = {
+            headers: requestHeaders,
+            body: `{ "@odata.id": "https://graph.microsoft.com/v1.0/users/${encodeURIComponent(employee.value)}" }`
+          };
 
-              });
+          client.post(`https://graph.microsoft.com/users/${encodeURIComponent(manager.value)}/manager/$ref`, AadHttpClient.configurations.v1, options)
+          .then((response: HttpClientResponse) => {
+
+            return response.json()
+          })
+          .then((responseJSON: JSON) => {
+
+            const result = document.getElementById('result');
+            result.innerHTML = JSON.stringify(responseJSON, null, 2);
+
+          })
+          .catch((error: any) => {
+
+            const result = document.getElementById('result');
+            result.innerHTML = JSON.stringify(error, null, 2);
+            
+          });
         });
     });
   }
