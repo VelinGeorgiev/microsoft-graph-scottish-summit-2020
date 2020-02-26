@@ -1,0 +1,157 @@
+{
+	"search a manager permissions": {
+		"prefix": "s-permissions",
+		"body": [
+		  "\"webApiPermissionRequests\": [",
+		  "      {",
+		  "        \"resource\": \"Microsoft Graph\",",
+		  "        \"scope\": \"User.ReadBasic.All\"",
+		  "      },",
+		  "      {",
+		  "        \"resource\": \"Microsoft Graph\",",
+		  "        \"scope\": \"User.Read.All\"",
+		  "      }",
+		  "    ]"
+		],
+		"description": "search a manager"
+	  },
+	  "search a manager import": {
+		"prefix": "s-import",
+		"body": [
+		  "import { MSGraphClient } from '@microsoft/sp-http';"
+		],
+		"description": "search a manager"
+	  },
+	  "search a manager html": {
+		"prefix": "s-html",
+		"body": [
+		  "this.domElement.innerHTML = `",
+		  "      <input type=\"text\" id=\"email\" name=\"email\" autocomplete=\"on\" />",
+		  "      <button id=\"search\">Search</button>",
+		  "      <div>Direct Manager:</div>",
+		  "      <pre id=\"result\"></pre>`;"
+		],
+		"description": "search a manager"
+	  },
+	  "search a manager button": {
+		"prefix": "s-button-event",
+		"body": [
+		  "const searchButton = document.getElementById('search');",
+		  "    searchButton.addEventListener('click', () => {",
+		  "",
+		  "      ",
+		  "    });"
+		],
+		"description": "search a manager"
+	  },
+	  "search a manager graph client": {
+		"prefix": "s-graph",
+		"body": [
+		  "const email = document.getElementById('email') as HTMLInputElement;",
+		  "",
+		  "      this.context.msGraphClientFactory",
+		  "        .getClient()",
+		  "        .then((client: MSGraphClient) => {",
+		  "          client",
+		  "            .api(`/users/${encodeURIComponent(email.value)}/manager/`)",
+		  "            .version('v1.0')",
+		  "            .select('displayName,mail,userPrincipalName')",
+		  "            .get((err, res) => {",
+		  "",
+		  "              const result = document.getElementById('result');",
+		  "              result.innerHTML = JSON.stringify((err || res), null, 2);",
+		  "              ",
+		  "            });",
+		  "        });"
+		],
+		"description": "search a manager"
+	  },
+	  "search a manager - all": {
+		"prefix": "s-wall",
+		"body": [
+		  "this.domElement.innerHTML = `",
+		  "      <input type=\"text\" id=\"email\" name=\"email\" autocomplete=\"on\" />",
+		  "      <button id=\"search\">Search</button>",
+		  "      <div>Direct Manager:</div>",
+		  "      <pre id=\"result\"></pre>`;",
+		  "",
+		  "    const searchButton = document.getElementById('search');",
+		  "    searchButton.addEventListener('click', () => {",
+		  "",
+		  "      const email = document.getElementById('email') as HTMLInputElement;",
+		  "",
+		  "      this.context.msGraphClientFactory",
+		  "        .getClient()",
+		  "        .then((client: MSGraphClient) => {",
+		  "          client",
+		  "            .api(`/users/${encodeURIComponent(email.value)}/manager/`)",
+		  "            .version('v1.0')",
+		  "            .select('displayName,mail,userPrincipalName')",
+		  "            .get((err, res) => {",
+		  "",
+		  "              const result = document.getElementById('result');",
+		  "              result.innerHTML = JSON.stringify((err || res), null, 2);",
+		  "              ",
+		  "            });",
+		  "        });",
+		  "    });"
+		],
+		"description": "search a manager"
+	  },
+	  "assign a manager": {
+		"prefix": "a-permissions",
+		"body": [
+		  "\"isDomainIsolated\": true,",
+		  "    \"webApiPermissionRequests\": [",
+		  "      {",
+		  "        \"resource\": \"Microsoft Graph\",",
+		  "        \"scope\": \"User.ReadWrite.All\"",
+		  "      }",
+		  "    ]"
+		],
+		"description": "assign a manager"
+	  },
+	  "assign a manager import": {
+		"prefix": "a-import",
+		"body": [
+		  "import { MSGraphClient } from '@microsoft/sp-http';"
+		],
+		"description": "assign a manager"
+	  },
+	  "assign a manager all": {
+		"prefix": "a-all",
+		"body": [
+		  "this.domElement.innerHTML = `",
+		  "      <input type=\"input\" id=\"employee\" placeholder=\"Email of the employee\" autocomplete=\"on\" name=\"email\" />",
+		  "      <input type=\"input\" id=\"manager\" placeholder=\"Email of the manager\" autocomplete=\"on\" name=\"email\" />",
+		  "      <button id=\"assign\">Assign</button>",
+		  "      <pre id=\"result\"></pre>`;",
+		  "",
+		  "    const assignButton = document.getElementById('assign');",
+		  "    assignButton.addEventListener('click', () => {",
+		  "",
+		  "      const manager = document.getElementById('manager') as HTMLInputElement;",
+		  "      const employee = document.getElementById('employee') as HTMLInputElement;",
+		  "",
+		  "      this.context.msGraphClientFactory",
+		  "        .getClient()",
+		  "        .then((client: MSGraphClient) => {",
+		  "",
+		  "          client",
+		  "          .api(`/users/${encodeURIComponent(manager.value)}/manager/$ref`)",
+		  "          .header('Content-Type', 'application/json')",
+		  "          .put({ ",
+		  "                \"@odata.id\": `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(employee.value)}` ",
+		  "               }, ",
+		  "              (err, res) => {",
+		  "",
+		  "                const result = document.getElementById('result');",
+		  "                result.innerHTML = JSON.stringify((err || res), null, 2);",
+		  "",
+		  "              });",
+		  "        });",
+		  "    });"
+		],
+		"description": "assign a manager"
+	  }
+}
