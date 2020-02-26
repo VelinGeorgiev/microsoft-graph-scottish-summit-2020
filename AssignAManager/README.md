@@ -24,3 +24,5 @@ gulp test - TODO
 gulp serve - TODO
 gulp bundle - TODO
 gulp package-solution - TODO
+
+https://www.sharepointnutsandbolts.com/2019/04/spfx-isolated-web-parts-with-AadHttpClient.html

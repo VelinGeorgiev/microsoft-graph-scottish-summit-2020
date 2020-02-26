@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
     "name": "search-for-a-manager-client-side-solution",
-    "id": "d9d61bc0-75a1-4c73-98f8-de94c1a88148",
+    "id": "ec9796eb-5816-4a3f-bb17-d59c0ee6042d",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
@@ -19,6 +19,6 @@
     ]
   },
   "paths": {
-    "zippedPackage": "solution/search-for-a-manager.sppkg"
+    "zippedPackage": "solution/search-for-a-manager-1.sppkg"
   }
 }

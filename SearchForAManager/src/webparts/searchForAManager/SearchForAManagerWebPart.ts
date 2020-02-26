@@ -16,12 +16,10 @@ export default class SearchForAManagerWebPart extends BaseClientSideWebPart <ISe
 
   public render(): void {
     this.domElement.innerHTML = `
-    <div>
       <input type="text" id="email" name="email" autocomplete="on" />
       <button id="search">Search</button>
       <div>Direct Manager:</div>
-      <pre id="result"></pre> 
-    </div>`;
+      <pre id="result"></pre>`;
 
     const searchButton = document.getElementById('search');
     searchButton.addEventListener('click', () => {
