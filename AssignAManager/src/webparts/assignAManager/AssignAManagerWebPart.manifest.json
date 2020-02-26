@@ -15,9 +15,9 @@
   "supportedHosts": ["SharePointWebPart"],
 
   "preconfiguredEntries": [{
-    "groupId": "476d90bc-fb4e-471c-8d5b-1665a9cd385f", // Other
+    "groupId": "7993952d-3053-43a9-95c0-951fbe40c847", // Other
     "group": { "default": "Other" },
-    "title": { "default": "AssignAManager1" },
+    "title": { "default": "AssignAManager2" },
     "description": { "default": "AssignAManager description" },
     "officeFabricIconFontName": "Page",
     "properties": {

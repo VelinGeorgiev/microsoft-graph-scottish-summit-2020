@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
     "name": "assign-a-manager-client-side-solution",
-    "id": "69358263-e242-44f7-b22e-861c08dda9d6",
+    "id": "5259907c-26d7-43fe-b2b2-9e5fe3a610e3",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
@@ -15,6 +15,6 @@
     ]
   },
   "paths": {
-    "zippedPackage": "solution/assign-a-manager-1.sppkg"
+    "zippedPackage": "solution/assign-a-manager-2.sppkg"
   }
 }

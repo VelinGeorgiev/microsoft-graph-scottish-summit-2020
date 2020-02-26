@@ -15,9 +15,9 @@
   "supportedHosts": ["SharePointWebPart"],
 
   "preconfiguredEntries": [{
-    "groupId": "8e183051-e2e0-4538-88dc-bae4debff716", // Other
+    "groupId": "98e6fbf7-4851-40ab-8a5b-1ad1241906cd", // Other
     "group": { "default": "Other" },
-    "title": { "default": "SearchForAManager1" },
+    "title": { "default": "SearchForAManager2" },
     "description": { "default": "SearchForAManager description" },
     "officeFabricIconFontName": "Page",
     "properties": {
