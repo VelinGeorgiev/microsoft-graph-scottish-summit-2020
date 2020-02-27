@@ -12,3 +12,6 @@ once you have your snippet ready go in a file and type the first few letters of 
 Or follow this:
 https://stackoverflow.com/questions/29995863/how-to-add-custom-code-snippets-in-vscode
 
+Globals stored here:
+~/Library/Application Support/Code/User/snippets/scottish-summit-2020.code-snippets
+
