@@ -67,7 +67,7 @@
 		"description": "search a manager"
 	  },
 	  "search a manager - all": {
-		"prefix": "s-wall",
+		"prefix": "s-w-all",
 		"body": [
 		  "this.domElement.innerHTML = `",
 		  "      <input type=\"text\" id=\"email\" name=\"email\" autocomplete=\"on\" />",
@@ -153,5 +153,50 @@
 		  "    });"
 		],
 		"description": "assign a manager"
+	  },
+	  "Aad client": {
+		"prefix": "a-w-aad",
+		"body": [
+		  "this.context.aadHttpClientFactory",
+		  "        .getClient('https://graph.microsoft.com')",
+		  "        .then((client: AadHttpClient) => {",
+		  "",
+		  "          const requestHeaders: Headers = new Headers();",
+		  "          requestHeaders.append('Content-type', 'application/json');",
+		  "          requestHeaders.append('Cache-Control', 'no-cache');",
+		  "",
+		  "          const options: IHttpClientOptions = {",
+		  "            headers: requestHeaders,",
+		  "            method: 'PUT',",
+		  "            body: `{ \"@odata.id\": \"https://graph.microsoft.com/v1.0/users/${encodeURIComponent(employee.value)}\" }`",
+		  "          };",
+		  "",
+		  "          client.fetch(`https://graph.microsoft.com/v1.0/users/${encodeURIComponent(manager.value)}/manager/$ref`, AadHttpClient.configurations.v1, options)",
+		  "          .then((response: HttpClientResponse) => {",
+		  "",
+		  "            return response.json()",
+		  "          })",
+		  "          .then((responseJSON: JSON) => {",
+		  "",
+		  "            const result = document.getElementById('result');",
+		  "            result.innerHTML = JSON.stringify(responseJSON, null, 2);",
+		  "",
+		  "          })",
+		  "          .catch((error: any) => {",
+		  "",
+		  "            const result = document.getElementById('result');",
+		  "            result.innerHTML = JSON.stringify(error, null, 2);",
+		  "            ",
+		  "          });",
+		  "        });"
+		],
+		"description": "Aad client"
+	  },
+	  "Aad client import": {
+		"prefix": "a-w-aad-import",
+		"body": [
+		  "import { AadHttpClient, IHttpClientOptions, HttpClientResponse } from '@microsoft/sp-http';"
+		],
+		"description": "Aad client import"
 	  }
 }
